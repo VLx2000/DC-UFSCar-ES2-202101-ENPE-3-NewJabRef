@@ -145,7 +145,6 @@ public class BibEntry {
             randCiteKey += RandomStringUtils.randomAlphanumeric(len);
             setField(KEY_FIELD, randCiteKey);
         }
-        setField(KEY_FIELD, newCiteKey);
     }
 
     /**
