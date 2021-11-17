@@ -33,12 +33,15 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
 
 import net.sf.jabref.model.database.BibDatabase;
 
 import com.google.common.base.Strings;
+
+import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -133,7 +136,15 @@ public class BibEntry {
      * @param newCiteKey The cite key to set. Must not be null, may be empty to remove it.
      */
     public void setCiteKey(String newCiteKey) {
-        setField(KEY_FIELD, newCiteKey);
+        if(newCiteKey.length() > 1 && Character.isLetter(newCiteKey.charAt(0))){
+            setField(KEY_FIELD, newCiteKey);
+        } else{
+            Random rand = new Random();
+            int len = rand.nextInt(8) + 1;
+            String randCiteKey = RandomStringUtils.randomAlphabetic(1);
+            randCiteKey += RandomStringUtils.randomAlphanumeric(len);
+            setField(KEY_FIELD, randCiteKey);
+        }
     }
 
     /**
