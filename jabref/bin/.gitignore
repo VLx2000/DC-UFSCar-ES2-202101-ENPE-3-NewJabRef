@@ -1,3 +1,12 @@
+/build.properties
+/fonts/
+/images/
+/journals/
+/l10n/
+/log4j2.xml
 /net/
 /org/
 /osx/
+/pdfs/
+/resource/
+/testbib/
