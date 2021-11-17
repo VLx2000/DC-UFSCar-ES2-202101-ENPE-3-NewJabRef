@@ -11,6 +11,7 @@ import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.*;
 import org.apache.logging.log4j.core.util.Integers;
 
 import net.sf.jabref.BibDatabaseContext;
