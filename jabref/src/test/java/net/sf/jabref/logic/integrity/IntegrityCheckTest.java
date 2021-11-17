@@ -54,6 +54,7 @@ public class IntegrityCheckTest {
         assertWrong(createContext("year", "abc"));
         assertWrong(createContext("year", "86"));
         assertWrong(createContext("year", "204"));
+        assertWrong(createContext("year", "2999"));
     }
 
     @Test

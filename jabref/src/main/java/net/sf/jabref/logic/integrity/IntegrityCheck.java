@@ -11,6 +11,8 @@ import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.*;
+import org.apache.logging.log4j.core.util.Integers;
 
 import net.sf.jabref.BibDatabaseContext;
 import net.sf.jabref.Globals;
@@ -272,16 +274,23 @@ public class IntegrityCheck {
 
         /**
          * Checks, if the number String contains a four digit year
+         * Checks, if the year field is valid (in the present or past)
          */
         @Override
         public List<IntegrityMessage> check(BibEntry entry) {
             Optional<String> value = entry.getFieldOptional("year");
+            int actualYear = Calendar.getInstance().get(Calendar.YEAR);
+
             if (!value.isPresent()) {
                 return Collections.emptyList();
             }
 
             if (!CONTAINS_FOUR_DIGIT.test(value.get().trim())) {
                 return Collections.singletonList(new IntegrityMessage(Localization.lang("should contain a four digit number"), entry, "year"));
+            }
+
+            if (Integers.parseInt(value.get().trim()) > actualYear){
+                return Collections.singletonList(new IntegrityMessage(Localization.lang("year field should be in the present or in the past."), entry, "year"));
             }
 
             return Collections.emptyList();
