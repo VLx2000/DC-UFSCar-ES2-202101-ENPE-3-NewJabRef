@@ -376,6 +376,36 @@ public class BibEntry {
 
         changed = true;
 
+        if (fieldName == "year") {
+
+            int anoInput;
+            int anoAtual;
+
+            // Verificando se o ano de entrada eh um valor inteiro
+            try {
+                anoInput = Integer.parseInt(value);
+            } catch (NumberFormatException nfe) {
+                fields.put(fieldName, "");
+                throw new IllegalArgumentException(
+                        "Campo ano não aceita valores não inteiros! Por favor, digite novamente");
+            }
+
+            // Verificando se o ano de entrada possui valor nao negativo
+            if (anoInput < 0) {
+                fields.put(fieldName, "");
+                throw new IllegalArgumentException(
+                        "Campo ano não aceita um numero inteiro negativo. Por favor digite novamente");
+            }
+
+            // Verificando se o ano de entrada ultrapassa o ano atual
+            anoAtual = Calendar.getInstance().get(Calendar.YEAR);
+            if (anoInput > anoAtual) {
+                fields.put(fieldName, "");
+                throw new IllegalArgumentException("Campo ano não aceita um inteiro maior que o ano de " + anoAtual);
+            }
+
+        }
+
         String oldValue = fields.get(fieldName);
         try {
             // We set the field before throwing the changeEvent, to enable
